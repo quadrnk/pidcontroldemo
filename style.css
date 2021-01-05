@@ -23,7 +23,7 @@ body {
 }
 #cnvs {
 	position: relative;
-	display: block;
+  display: block;
 }
 .control input[type="number"] {
 	max-width: 4em;

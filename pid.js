@@ -77,7 +77,7 @@
 		}
 		mouse = {
 			'x': x,
-			'y': y
+			'y': y 
 		};
 	};
 
@@ -100,6 +100,8 @@
 
 	var control_loop = function() {
 		setpoint = copy_xy(mouse);
+		setpoint.x = cnvs.width / 2;
+
 		['x', 'y'].forEach(function(dim){
 			error[dim] = setpoint[dim] - ball_position[dim];
 			integral[dim] = integral[dim] + error[dim]*control_loop_frequency

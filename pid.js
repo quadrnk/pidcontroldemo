@@ -19,10 +19,10 @@
 	"use strict";
 
 	// default parameter values
-	var proportional_gain = .25;
+	var proportional_gain = .06;
 	var integral_gain = 0.01;
-	var derivative_gain = 0.3;
-	var control_loop_frequency = 15;
+	var derivative_gain = 0.01;
+	var control_loop_frequency = 5;
 
 	var ctx;
 	var cnvs;
@@ -74,7 +74,10 @@
 		} else if (e.layerX) {
 			x = e.layerX;
 			y = e.layerY;
-		}
+    }
+
+    y = cnvs.height / 2;
+    
 		mouse = {
 			'x': x,
 			'y': y 
@@ -99,8 +102,8 @@
 	};
 
 	var control_loop = function() {
-		setpoint = copy_xy(mouse);
-		setpoint.x = cnvs.width / 2;
+    setpoint = copy_xy(mouse);
+		// setpoint.x = cnvs.width / 2;
 
 		['x', 'y'].forEach(function(dim){
 			error[dim] = setpoint[dim] - ball_position[dim];
@@ -149,13 +152,23 @@
 		draw_chart('x','green');
 		draw_chart('y','orange');
 
-		ctx.beginPath();
-		ctx.arc(ball_position.x, ball_position.y, 20, 0, Math.PI * 2, true);
+    ctx.beginPath();
+		ctx.arc(mouse.x, mouse.y, 20, 0, Math.PI * 2, true);
 		ctx.closePath();
 		ctx.strokeStyle = 'black';
 		ctx.fillStyle = 'red';
 		ctx.fill();
 		ctx.stroke();
+
+		// ctx.beginPath();
+		// ctx.arc(ball_position.x, ball_position.y, 20, 0, Math.PI * 2, true);
+		// ctx.closePath();
+		// ctx.strokeStyle = 'black';
+		// ctx.fillStyle = 'green';
+		// ctx.fill();
+    // ctx.stroke();
+    const image = document.getElementById('hands');
+    ctx.drawImage(image, ball_position.x - 64, ball_position.y - 48, 128, 96);
 	};
 
 	var main_loop = function(){
